@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     leftArray = []
     rightArray = []
-    count = 0;
+    count = 0
 
     with open('input.txt', 'r') as file:
         # Read each line in the file
@@ -58,7 +58,6 @@ if __name__ == '__main__':
     rightArray = radix_sort(rightArray)
 
     sum = 0
-
     for i in range(count):
         sum += abs(int(leftArray[i]) - int(rightArray[i]))
 
