@@ -2,7 +2,6 @@ import re
 
 if __name__ == '__main__':
     sum = 0
-
     with (open('input.txt', 'r') as file):
         # Read each line in the file
         for line in file:
