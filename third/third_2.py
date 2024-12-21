@@ -4,6 +4,8 @@ if __name__ == '__main__':
     sum = 0
     output = open("output.txt", "w")
 
+    includeEnding = True
+
     with (open('input.txt', 'r') as file):
         # Read each line in the file
         fileString = ""
@@ -15,9 +17,14 @@ if __name__ == '__main__':
         while(fileString.find("don't()") != -1):
             preprocessedString += fileString[:fileString.find("don't()")]
             fileString = fileString[fileString.find("don't()")+7:]
+            if(fileString.find("do()") == -1) :
+                includeEnding = False
+                break
             fileString = fileString[fileString.find("do()")+4:]
 
-        preprocessedString+=fileString
+        if(includeEnding):
+            preprocessedString+=fileString
+
 
         output.write(preprocessedString)
 
