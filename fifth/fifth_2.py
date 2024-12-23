@@ -63,6 +63,7 @@ if __name__ == "__main__":
     print(check)
     '''
 
+    '''
     # Performing topological sort
     print(revadj)
     print(adj)
@@ -88,7 +89,7 @@ if __name__ == "__main__":
         # If indegree becomes 0, push it to the queue
             if indegree[hashmap[adjacent]] == 0:
                 q.put(adjacent)
-
+    '''
     #print(nodeList)
     #print(topoSorted)
 
@@ -109,22 +110,30 @@ if __name__ == "__main__":
                 if value_index != -1 and value_index >= j:
                     correctTopo = False
                     break
-        if correctTopo:
-            sum += i[len(i)//2]
-        '''
         if not correctTopo:
             count = 0
             targetIndex = len(i)//2
-            for a in topoSorted:
-                try:
-                    value_index = i.index(a)
-                except:
-                    value_index = -1
-                if value_index != -1 : count += 1
-                if count == targetIndex+1:
-                    sum += i[value_index]
-                    break
-        '''
+            j = 0
+            while j < len(i):
+                binding = False
+                for k in revadj[hashmap[i[j]]]:
+                    try:
+                        value_index = i.index(k)
+                    except:
+                        value_index = -1
+                    if value_index != -1:
+                        binding = True
+                        break
+                if not binding:
+                    count += 1
+                    if count == targetIndex+1:
+                        sum += i[j]
+                        break
+                    i.pop(j)
+                    j = -1
+
+                j += 1
+
     print(sum)
 '''
     # Performing topological sort
