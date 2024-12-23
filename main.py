@@ -1,16 +1,56 @@
-# This is a sample Python script.
+from collections import deque
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Function to return list containing vertices in Topological order.
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def topological_sort(adj, V):
+    # Vector to store indegree of each vertex
+    indegree = [0] * V
+    for i in range(V):
+        for vertex in adj[i]:
+            indegree[vertex] += 1
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # Queue to store vertices with indegree 0
+    q = deque()
+    for i in range(V):
+        if indegree[i] == 0:
+            q.append(i)
+    result = []
+    while q:
+        node = q.popleft()
+        result.append(node)
+        # Decrease indegree of adjacent vertices as the current node is in topological order
+        for adjacent in adj[node]:
+            indegree[adjacent] -= 1
+            # If indegree becomes 0, push it to the queue
+            if indegree[adjacent] == 0:
+                q.append(adjacent)
+
+    # Check for cycle
+    if len(result) != V:
+        print("Graph contains cycle!")
+        return []
+    return result
+
+
+if __name__ == "__main__":
+    n = 6  # Number of nodes
+
+    # Edges
+    edges = [[0, 1], [1, 2], [2, 3], [4, 5], [5, 1], [5, 2]]
+
+    # Graph represented as an adjacency list
+    adj = [[] for _ in range(n)]
+
+    # Constructing adjacency list
+    for edge in edges:
+        adj[edge[0]].append(edge[1])
+
+    print(adj)
+    # Performing topological sort
+    print("Topological sorting of the graph:", end=" ")
+    result = topological_sort(adj, n)
+
+    # Displaying result
+    for vertex in result:
+        print(vertex, end=" ")
