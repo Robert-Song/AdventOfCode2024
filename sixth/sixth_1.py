@@ -48,11 +48,9 @@ if __name__ == '__main__':
                 arr[i_next][j_next] = 'X'
                 i = i_next
                 j = j_next
-                continue
             elif arr[i_next][j_next] == 'X':
                 i = i_next
                 j = j_next
-                continue
             elif arr[i_next][j_next] == '#':
                 match direction:
                     case Direction.NORTH:
@@ -63,7 +61,6 @@ if __name__ == '__main__':
                         direction = Direction.WEST
                     case Direction.WEST:
                         direction = Direction.NORTH
-                continue
     except IndexError: print("reached end")
     except: print("what?")
     else: print("infinite loop?")
