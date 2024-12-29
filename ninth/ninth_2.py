@@ -49,8 +49,4 @@ if __name__ == '__main__':
         if result[i] != '.':
             check_sum += int(result[i])*i
 
-    #8633000799994 is too high
-    #6382582136592
-    #4181910531650 is too low
-
     print(check_sum)
