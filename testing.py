@@ -1,3 +1,4 @@
+import numpy as np
 if __name__ == '__main__':
 
 
@@ -6,4 +7,7 @@ if __name__ == '__main__':
 
     print(farm)
 
-    if (1, *)
+a = np.array([[1, 2], [3, 5]])
+b = np.array([1, 2])
+x = np.linalg.solve(a, b)
+print(x)
