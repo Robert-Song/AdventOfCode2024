@@ -25,9 +25,7 @@ if __name__ == '__main__':
             arr = list(map(int, list(line.split(" "))))
 
     stones = Counter(arr)
-    print(stones)
     for blink_time in range(75):
         stones = blink(stones)
-        print(stones)
 
     print(sum(stones.values()))
