@@ -1,12 +1,9 @@
 if __name__ == '__main__':
 
 
-    farm = {(1, 3)}
+    farm = {(1, 2)}
+    farm.add((3, 4))
+
     print(farm)
-    farm.add(1)
-    print(farm)
-    farm = set()
-    print(farm)
-    farm.add(2)
-    print(len(farm))
-    print(farm)
+
+    if (1, *)
