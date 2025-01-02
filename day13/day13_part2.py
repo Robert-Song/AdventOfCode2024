@@ -47,7 +47,5 @@ if __name__ == '__main__':
         else:
             coin += 3 * round(goalX) + round(goalY)
 
-    #93771306727782 too high
     #92827349540204
-    #89514066591250 too low
     print(coin)
