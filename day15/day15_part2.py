@@ -45,23 +45,21 @@ def ud_move(position, direction):
 
         while True:
             affected_items.append([])
-            temp = 0
             for i, j in affected_items[item_count-1]:
                 if arr[i+direction[0]][j] == '#':
                     return position
-
-                if arr[i+direction[0]][j] == '[' or arr[i+direction[0]][j] == ']':
-                    if temp == 0 and arr[i + direction[0]][j] == ']':
-                        affected_items[item_count].append((i + direction[0], j - 1))
-                    affected_items[item_count].append((i + direction[0], j))
-                    if temp == len(affected_items[item_count - 1]) - 1 and arr[i + direction[0]][j] == '[':
-                        affected_items[item_count].append((i + direction[0], j + 1))
-
-                temp+=1
+                if arr[i+direction[0]][j] == '[':
+                    if (i+direction[0], j) not in affected_items[item_count]:
+                        affected_items[item_count].append((i+direction[0], j))
+                        affected_items[item_count].append((i+direction[0], j+1))
+                if arr[i+direction[0]][j] == ']':
+                    if (i+direction[0], j) not in affected_items[item_count]:
+                        affected_items[item_count].append((i + direction[0], j-1))
+                        affected_items[item_count].append((i + direction[0], j))
 
             if affected_items[item_count] == []:
                 for level in affected_items[::-1]:
-                    level = list(set(level))
+                    #level = list(set(level))
                     for i, j in level:
                         arr[i+direction[0]][j] = arr[i][j]
                         arr[i][j] = '.'
@@ -120,9 +118,6 @@ if __name__ == '__main__':
         if head == '>' or head == '<': current_position = lr_move(current_position, direction)
         elif head == '^' or head == 'v': current_position = ud_move(current_position, direction)
 
-
-        #<^^>>>vv<v>>v<<
-        #1404228 too high
         '''
         print(tct)
         tct += 1
@@ -136,6 +131,7 @@ if __name__ == '__main__':
         for w in range(len(arr[0])):
             print(arr[h][w], end='')
         print()
+
     gps = 0
     for i in range(len(arr)):
         for j in range(len(arr[0])):
