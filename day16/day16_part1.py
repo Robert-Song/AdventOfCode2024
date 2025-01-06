@@ -2,6 +2,8 @@ import sys
 
 if __name__ == '__main__':
     arr = []
+    # well, I shouldn't do this
+    sys.setrecursionlimit(3000)
 
     # read file
     with (open("real.in", 'r') as file):
@@ -20,6 +22,10 @@ if __name__ == '__main__':
 
     def dfs(position, direction, score):
         global best_score, arr
+
+        if score >= best_score:
+            return
+
         i = position[0] + direction[0]
         j = position[1] + direction[1]
 
