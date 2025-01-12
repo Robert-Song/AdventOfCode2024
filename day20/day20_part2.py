@@ -50,25 +50,20 @@ if __name__ == '__main__':
         if dist[current] >= 9480 - 100:
             break
 
-        duplicate = set()
+        # key: end location, value: saved time
+        duplicate = {}
 
-        dijkstra = {0: current}
+        dijkstra = {current: 0}
         pq = []
-        # heapq.heappush(pq, (priority, item))
-        # priority = cost, item = index tuple
-        # heapq.heappop(pq)
         heapq.heappush(pq, (0, current))
 
         while pq:
             cost, location = heapq.heappop(pq)
-            if cost > 20:
+            if cost >= 20:
                 break
             direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
             for di, dj in direction:
                 if not (0 <= location[0] + di < len(arr) and 0 <= location[1] + dj < len(arr[0])):
-                    continue
-
-                if (location[0] + di, location[1] + dj) in duplicate:
                     continue
 
                 if arr[location[0] + di][location[1] + dj] == '#':
@@ -76,10 +71,20 @@ if __name__ == '__main__':
                         dijkstra[(location[0] + di, location[1] + dj)] = cost + 1
                         heapq.heappush(pq, (cost + 1, (location[0] + di, location[1] + dj)))
 
-                if arr[location[0] + di][location[1] + dj] == 'O':
-                    saved = dist[(location[0] + di, location[1] + dj)] - dist[current] + cost + 1
-                    if saved >= 50:
-                        duplicate.add((location[0] + di, location[1] + dj))
+                elif arr[location[0] + di][location[1] + dj] == 'O':
+                    saved = dist[(location[0] + di, location[1] + dj)] - dist[current] - cost - 1
+
+                    if saved < 50:
+                        continue
+
+                    if (location[0] + di, location[1] + dj) in duplicate:
+                        if duplicate[(location[0] + di, location[1] + dj)] < saved:
+                            result[duplicate[(location[0] + di, location[1] + dj)]] -= 1
+                            result[saved] += 1
+                            duplicate[(location[0] + di, location[1] + dj)] = saved
+                    else:
+                        duplicate[(location[0] + di, location[1] + dj)] = saved
                         result[saved] += 1
+        print(current, duplicate)
 
     print(result)
